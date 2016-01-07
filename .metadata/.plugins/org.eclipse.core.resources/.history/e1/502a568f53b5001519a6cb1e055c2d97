@@ -1,0 +1,112 @@
+import java.awt.Choice;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JTextArea;
+
+public class MainFrame extends JFrame{
+	
+	private JLabel lb_Font = new JLabel( "字型" );
+	private JLabel lb_Style = new JLabel( "風格" );
+	private JLabel lb_Size = new JLabel( "風格" );
+	private JLabel lb_Front = new JLabel( "前景色" );
+	private JLabel lb_Rear = new JLabel( "後景色" );
+	
+	private Choice ch_Font = new Choice();
+	private Choice ch_Style = new Choice();
+	private Choice ch_Size = new Choice();
+	private Choice ch_Front = new Choice();
+	private Choice ch_Rear = new Choice();
+	
+	private JButton btn_Exit = new JButton( "結束" );
+	private JButton[][] btn_Group = new JButton[4][3];
+	
+	private JTextArea ta = new JTextArea();
+	
+	
+	public MainFrame(){
+		this.setTitle( "簡易文字編輯器 v0.1 by Kovich" );
+		this.setLayout(null);
+		this.setSize(505, 505);
+		this.setLocationRelativeTo(null); // 畫面放置螢幕正中
+		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		
+		lb_Font.setBounds(0, 0, 40, 20);
+		this.add(lb_Font);
+		
+		ch_Font.add("新明細體");
+		ch_Font.add("標楷體");
+		ch_Font.setBounds(0, 20, 150, 20);
+		this.add(ch_Font);
+		
+		lb_Style.setBounds(170, 0, 40, 20);
+		this.add(lb_Style);
+		
+		ch_Style.add("無");
+		ch_Style.add("斜體");
+		ch_Style.add("粗體");
+		ch_Style.add("斜體+粗體");
+		ch_Style.setBounds(170, 20, 150, 20);
+		this.add(ch_Style);
+		
+		lb_Size.setBounds(340, 0, 40, 20);
+		this.add(lb_Size);
+		
+		for(int i=6;i<=40;i++){
+			ch_Size.add(""+i);
+		}
+		ch_Size.setBounds(340, 20, 150, 20);
+		this.add(ch_Size);
+		
+		lb_Front.setBounds(0, 60, 40, 20);
+		this.add(lb_Front);
+		
+		ch_Front.add("黑色");
+		ch_Front.add("藍色");
+		ch_Front.add("紅色");
+		ch_Front.add("黃色");
+		ch_Front.add("綠色");
+		ch_Front.setBounds(0, 80, 150, 20);
+		this.add(ch_Front);
+		
+		lb_Rear.setBounds(170, 60, 40, 20);
+		this.add(lb_Rear);
+		
+		ch_Rear.add("白色");
+		ch_Rear.add("藍色");
+		ch_Rear.add("紅色");
+		ch_Rear.add("黃色");
+		ch_Rear.add("綠色");
+		ch_Rear.setBounds(170, 80, 150, 20);
+		this.add(ch_Rear);
+
+		btn_Exit.setBounds(340, 80, 150, 20);
+		btn_Exit.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				System.exit(0);
+			}
+			
+		});
+		this.add(btn_Exit);
+		int tmp = 0;
+		String tmpStr = "";
+		for(int i=0;i<btn_Group.length;i++){
+			for(int j=0;j<btn_Group[i].length;j++){
+				tmpStr = (tmp >= 10)?((tmp == 10)?("_"):("@")):(""+tmp);
+				btn_Group[i][j] = new JButton(tmpStr);
+				btn_Group[i][j].setBounds(0+(170*j), 110+(30*i), 150, 20);
+				this.add(btn_Group[i][j]);
+				tmp++;
+			}
+		}
+	}
+	public void setWord(){
+		
+	}
+}
