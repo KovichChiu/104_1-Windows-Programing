@@ -1,0 +1,12 @@
+import javax.swing.JFrame;
+
+public class MainFrame extends JFrame {
+	
+	
+	
+	public MainFrame() {
+		this.setTitle("簡易小算盤 v0.1 by Kovich");
+		this.setSize(200, 300);
+		this.setLocationRelativeTo(null); // 畫面放置螢幕正中
+	}
+}

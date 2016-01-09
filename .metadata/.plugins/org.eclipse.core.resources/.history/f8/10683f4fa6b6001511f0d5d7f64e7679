@@ -1,0 +1,24 @@
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+
+public class Login extends JFrame{
+	
+	private JLabel lb_Account = new JLabel("Account",JLabel.RIGHT);
+	private JLabel lb_Passwd = new JLabel("Password",JLabel.RIGHT);
+	private JTextField tf_Account = new JTextField();
+	private JTextField tf_Passwd = new JTextField();
+	private JButton btn_Sure = new JButton("½T©w");
+	private JButton btn_Exit = new JButton("Exit");
+	
+	public Login(){
+		
+		this.setTitle("Login");
+		this.setSize(400, 200);
+		this.setLocationRelativeTo(null);
+		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		
+		
+	}
+}

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename field &apos;tmpInt&apos; in &apos;MainFrame&apos; to &apos;tmpFolat&apos;&#x0D;&#x0A;- Original project: &apos;HW_1005-1011&apos;&#x0D;&#x0A;- Original element: &apos;MainFrame.tmpInt&apos;&#x0D;&#x0A;- Renamed element: &apos;MainFrame.tmpFolat&apos;&#x0D;&#x0A;- Update references to refactored element&#x0D;&#x0A;- Update textual occurrences in comments and strings" delegate="false" deprecate="false" description="Rename field &apos;tmpInt&apos;" flags="589826" getter="false" id="org.eclipse.jdt.ui.rename.field" input="/src&lt;{MainFrame.java[MainFrame^tmpInt" name="tmpFolat" references="true" setter="false" stamp="1452238572618" textual="false" version="1.0"/>
+</session>

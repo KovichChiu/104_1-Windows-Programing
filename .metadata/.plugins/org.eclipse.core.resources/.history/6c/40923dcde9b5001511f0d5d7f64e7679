@@ -1,0 +1,133 @@
+import java.awt.Choice;
+import java.awt.Color;
+import java.awt.Menu;
+import java.awt.MenuBar;
+import java.awt.MenuItem;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
+
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JTextArea;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
+
+public class MainFrame extends JFrame{
+	
+	private File fileLocation = null;
+	private File fileName = null;
+	private File fileCnf = null;
+	
+	private MenuBar mb = new MenuBar();
+	private Menu menu_File = new Menu("File");
+	private Menu menu_Help = new Menu("Help");
+	private MenuItem mFile_Open = new MenuItem("Open");
+	private MenuItem mFile_Save = new MenuItem("Save");
+	private MenuItem mFile_Close = new MenuItem("Close");
+	private MenuItem mHelp_Set = new MenuItem("Set");
+	
+	private JFileChooser jdir;  
+	
+	private JTextArea ta = new JTextArea();
+	private JLabel lb_Name = new JLabel();
+	private JLabel lb_Count = new JLabel("",JLabel.RIGHT);
+	
+	private Choice ch_Font = new Choice();
+	private Choice ch_Style = new Choice();
+	private Choice ch_Size = new Choice();
+	
+	public MainFrame(){
+		this.setTitle("簡易開檔讀檔 v0.1 by Kovich");
+		this.setSize(430, 430);
+		this.setLocationRelativeTo(null); // 畫面放置螢幕正中
+		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		this.setLayout(null);
+		try {
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InstantiationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (UnsupportedLookAndFeelException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} //設定介面與系統相符
+		
+		mFile_Open.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent arg0) {
+				jdir = new JFileChooser();
+				jdir.setDialogTitle("Open File");  
+		        if (JFileChooser.APPROVE_OPTION == jdir.showOpenDialog(null)) {
+		        	fileLocation = jdir.getCurrentDirectory();
+		        	fileCnf = new File(""+fileLocation+"\\note.cnf");
+		        	fileName = jdir.getSelectedFile();
+		        }  
+			}
+		});
+		menu_File.add(mFile_Open);
+		
+		mFile_Save.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
+		menu_File.add(mFile_Save);
+		
+		mFile_Close.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+			
+		});
+		menu_File.add(mFile_Close);
+		
+		mb.add(menu_File);
+		
+		mHelp_Set.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+			
+		});
+		menu_Help.add(mHelp_Set);
+		
+		mb.add(menu_Help);
+		this.setMenuBar(mb);
+		
+		ch_Font.add("新細明體");
+		ch_Font.add("標楷體");
+		ch_Font.setBounds(5,5,130,20);
+		this.add(ch_Font);
+		
+		ch_Style.add("無");
+		ch_Style.add("粗體");
+		ch_Style.add("斜體");
+		ch_Style.add("粗體 + 斜體");
+		ch_Style.setBounds(140,5,130,20);
+		this.add(ch_Style);
+		
+		for(int i=12;i<=46;i+=2){
+			ch_Size.add(""+i);
+		}
+		ch_Size.setBounds(275, 5, 130, 20);
+		this.add(ch_Size);
+		
+		ta.setBounds(5, 30, 400, 300);
+		this.add(ta);
+		
+		lb_Name.setBounds(5, 310, 65, 20);
+		lb_Name.setOpaque(true);
+		lb_Name.setBackground(Color.PINK);
+		
+		lb_Count.setBounds(70, 310, 65, 20);
+		lb_Count.setOpaque(true);
+		lb_Count.setBackground(Color.CYAN);
+	}
+}

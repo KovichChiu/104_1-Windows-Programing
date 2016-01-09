@@ -1,0 +1,28 @@
+import java.awt.Color;
+import java.awt.Font;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JTextField;
+
+public class MainFrame extends JFrame {
+
+	private JTextField tf_Number = new JTextField();
+	private JButton[][] btn_Number = new JButton[4][4];
+
+	public MainFrame() {
+
+		this.setTitle("簡易小算盤 v0.1 by Kovich");
+		this.setSize(450, 450);
+		this.setLocationRelativeTo(null); // 畫面放置螢幕正中
+		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		this.setLayout(null);
+
+		tf_Number.setBounds(15, 10, 405, 30);
+		tf_Number.setOpaque(true);
+		tf_Number.setBackground(Color.magenta);
+		tf_Number.setHorizontalAlignment(JTextField.RIGHT);
+		tf_Number.setFont(new Font("Consola", Font.BOLD, 20));
+		this.add(tf_Number);
+	}
+}

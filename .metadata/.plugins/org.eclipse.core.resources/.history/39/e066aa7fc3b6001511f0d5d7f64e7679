@@ -1,0 +1,50 @@
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JTextArea;
+import javax.swing.Timer;
+
+public class MainFrame extends JFrame{
+	private TimeLabel[] lb_h = new TimeLabel[2];
+	private TimeLabel[] lb_m = new TimeLabel[2];
+	private TimeLabel[] lb_s = new TimeLabel[2];
+	private JLabel[] lb_point = new JLabel[2];
+	private JButton btn_go = new JButton("Go");
+	private JButton btn_pause = new JButton("Pause");
+	private JButton btn_record = new JButton("Record");
+	private JButton btn_stop = new JButton("Stop");
+	private JButton btn_exit = new JButton("Exit");
+	private JTextArea ta = new JTextArea();
+	private ImageIcon img = new ImageIcon("Number/point.png"); 
+	
+	
+	public MainFrame(){
+		this.setTitle("¥i°O¿ý«¬½X¿ö v0.1 by Kovich");
+		this.setSize(750, 350);
+		this.setLocationRelativeTo(null);
+		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		this.setLayout(null);
+		
+		for(int i=0;i<2;i++){
+			lb_h[i] = new TimeLabel();
+			lb_h[i].setBounds(20+100*i,0,100,150);
+			this.add(lb_h[i]);
+			lb_m[i] = new TimeLabel();
+			lb_m[i].setBounds(270+100*i,0,100,150);
+			this.add(lb_m[i]);
+			lb_s[i] = new TimeLabel();
+			lb_s[i].setBounds(520+100*i,0,100,150);
+			this.add(lb_s[i]);
+		}
+		lb_point[0] = new JLabel();
+		lb_point[0].setIcon(img);
+		lb_point[0].setBounds(230, 0, 30, 150);
+		this.add(lb_point[0]);
+		lb_point[1] = new JLabel();
+		lb_point[1].setIcon(img);
+		lb_point[1].setBounds(480, 0, 30, 150);
+		this.add(lb_point[1]);
+	}
+	
+}

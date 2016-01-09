@@ -1,0 +1,10 @@
+import javax.swing.JFrame;
+
+public class MainFrame extends JFrame {
+	
+	
+	
+	public MainFrame() {
+		this.setTitle("Â²©ö¤pºâ½L v0.1 by Kovich");
+	}
+}

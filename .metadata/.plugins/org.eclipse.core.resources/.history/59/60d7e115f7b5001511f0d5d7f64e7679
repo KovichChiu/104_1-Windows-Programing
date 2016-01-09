@@ -1,0 +1,267 @@
+import java.awt.Choice;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Menu;
+import java.awt.MenuBar;
+import java.awt.MenuItem;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JTextArea;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
+
+public class MainFrame extends JFrame {
+
+	private File fileLocation = null;
+	private File fileName = null;
+	private File fileCnf = null;
+
+	private MenuBar mb = new MenuBar();
+	private Menu menu_File = new Menu("File");
+	private Menu menu_Help = new Menu("Help");
+	private MenuItem mFile_Open = new MenuItem("Open");
+	private MenuItem mFile_Save = new MenuItem("Save");
+	private MenuItem mFile_Close = new MenuItem("Close");
+	private MenuItem mHelp_Set = new MenuItem("Set");
+
+	private JFileChooser jdir;
+
+	private JTextArea ta = new JTextArea();
+	private JLabel lb_Name = new JLabel("檔名：");
+	private JLabel lb_Count = new JLabel("字數：",JLabel.RIGHT);
+
+	private Choice ch_Font = new Choice();
+	private Choice ch_Style = new Choice();
+	private Choice ch_Size = new Choice();
+
+	private String[] str_Group = {"新細明體", "無", "12", "黑", "白"};
+
+	public MainFrame() {
+		this.setTitle("簡易開檔讀檔 v0.1 by Kovich");
+		this.setSize(430, 430);
+		this.setLocationRelativeTo(null); // 畫面放置螢幕正中
+		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		this.setLayout(null);
+		try {
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InstantiationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (UnsupportedLookAndFeelException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} // 設定介面與系統相符
+
+		mFile_Open.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				jdir = new JFileChooser();
+				jdir.setDialogTitle("Open File");
+				if (JFileChooser.APPROVE_OPTION == jdir.showOpenDialog(null)) {
+					fileLocation = jdir.getCurrentDirectory();
+					fileName = jdir.getSelectedFile();
+					fileCnf = new File(fileLocation + "\\note.cnf");
+					
+					try {
+						FileReader fR = new FileReader(fileName);
+						BufferedReader bR = new BufferedReader(fR);
+						ta.setText("");
+						while (bR.ready()) {
+							ta.append(bR.readLine()+"\n");
+						}
+						fR.close();
+						lb_Name.setText((String.valueOf(fileName)).replace((fileLocation+"\\"),""));
+						if (fileCnf.isFile()) {
+							FileReader fR1 = new FileReader(fileCnf);
+							BufferedReader bR1 = new BufferedReader(fR1);
+							int i=0;
+							while (bR1.ready()) {
+								str_Group[i++] = bR1.readLine();
+							}
+							fR1.close();
+						} else {
+							FileWriter fw = new FileWriter(fileCnf);
+							for(int i=0;i<5;i++){
+								fw.write(str_Group[i]);
+								fw.write("\r\n");
+							}
+							fw.close();
+						}
+						System.out.println(str_Group[0]);
+						System.out.println(str_Group[1]);
+						System.out.println(str_Group[2]);
+						setTextarea(str_Group[0], str_Group[1], str_Group[2]);
+					} catch (FileNotFoundException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+				
+			}
+		});
+		menu_File.add(mFile_Open);
+
+		mFile_Save.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					FileWriter fw = new FileWriter(fileName);
+					fw.write("");
+					fw.write(ta.getText().replace("\n", "\r\n"));
+					fw.close();
+					FileWriter fw1 = new FileWriter(fileCnf);
+					for(int i=0;i<5;i++){
+						fw1.write(str_Group[i]);
+						fw1.write("\r\n");
+					}
+					fw1.close();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
+		menu_File.add(mFile_Save);
+
+		mFile_Close.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
+			}
+
+		});
+		menu_File.add(mFile_Close);
+
+		mb.add(menu_File);
+
+		mHelp_Set.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JFrame f = new JFrame();
+				f.setTitle("設定");
+				f.setVisible(false);
+				f.setLayout(null);
+				f.setBounds(50,0,100,100);
+				JLabel lb_front = new JLabel("字體顏色");
+				lb_front.setBounds(0, 0, 50, 20);
+				f.add(lb_front);
+				JLabel lb_back = new JLabel("背景顏色");
+				lb_back.setBounds(0, 40, 50, 20);
+				f.add(lb_back);
+				Choice ch_front = new Choice();
+				Choice ch_back = new Choice();
+				
+				
+			}
+
+		});
+		menu_Help.add(mHelp_Set);
+
+		mb.add(menu_Help);
+		this.setMenuBar(mb);
+
+		ch_Font.add("新細明體");
+		ch_Font.add("標楷體");
+		ch_Font.setBounds(5, 5, 130, 20);
+		ch_Font.addItemListener(new ItemListener(){
+
+			@Override
+			public void itemStateChanged(ItemEvent arg0) {
+				// TODO Auto-generated method stub
+				taSetting();
+			}
+			
+		});
+		this.add(ch_Font);
+
+		ch_Style.add("無");
+		ch_Style.add("粗體");
+		ch_Style.add("斜體");
+		ch_Style.add("粗體+斜體");
+		ch_Style.setBounds(140, 5, 130, 20);
+		ch_Style.addItemListener(new ItemListener(){
+
+			@Override
+			public void itemStateChanged(ItemEvent arg0) {
+				// TODO Auto-generated method stub
+				taSetting();
+			}
+			
+		});
+		this.add(ch_Style);
+
+		for (int i = 12; i <= 46; i += 2) {
+			ch_Size.add("" + i);
+		}
+		ch_Size.setBounds(275, 5, 130, 20);
+		ch_Size.addItemListener(new ItemListener(){
+
+			@Override
+			public void itemStateChanged(ItemEvent arg0) {
+				// TODO Auto-generated method stub
+				taSetting();
+			}
+			
+		});
+		this.add(ch_Size);
+
+		ta.setBounds(5, 30, 400, 300);
+		this.add(ta);
+
+		lb_Name.setBounds(5, 340, 195, 20);
+		lb_Name.setOpaque(true);
+		lb_Name.setBackground(Color.PINK);
+		this.add(lb_Name);
+
+		lb_Count.setBounds(215, 340, 195, 20);
+		lb_Count.setOpaque(true);
+		lb_Count.setBackground(Color.CYAN);
+		this.add(lb_Count);
+	}
+	public void taSetting(){
+		String font = ch_Font.getSelectedItem();
+		String style = ch_Style.getSelectedItem();
+		String size = ch_Size.getSelectedItem();
+		setTextarea(font,style,size);
+	}
+	public void setTextarea(String font, String style, String size) {
+		int style_int = 0;
+		switch (style) {
+		case "無":
+			style_int = Font.PLAIN;
+			break;
+		case "粗體":
+			style_int = Font.BOLD;
+			break;
+		case "斜體":
+			style_int = Font.ITALIC;
+			break;
+		case "粗體+斜體":
+			style_int = Font.BOLD + Font.ITALIC;
+			break;
+		}
+		str_Group[0] = font;
+		str_Group[1] = style;
+		str_Group[2] = size;
+		
+		ta.setFont(new Font(font, style_int, Integer.valueOf(size)));
+	}
+}

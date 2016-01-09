@@ -1,0 +1,106 @@
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JTextField;
+
+public class MainFrame extends JFrame {
+
+	private JTextField tf_Number = new JTextField();
+	private JButton[][] btn_Number = new JButton[4][4];
+	private String [][] btn_String = {{"7","8","9","+"},{"4","5","6","-"},{"1","2","3","*"},{"0",".","C","/"}};
+	private int tmpInt = 0;
+	
+	public MainFrame() {
+
+		this.setTitle("簡易小算盤 v0.1 by Kovich");
+		this.setSize(300, 250);
+		this.setLocationRelativeTo(null); // 畫面放置螢幕正中
+		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		this.setLayout(null);
+
+		tf_Number.setBounds(15, 10, 256, 30);
+		tf_Number.setOpaque(true);
+		tf_Number.setHorizontalAlignment(JTextField.RIGHT);
+		tf_Number.setFont(new Font("Consola", Font.BOLD, 20));
+		this.add(tf_Number);
+		
+		for(int i=0;i<4;i++){
+			for(int j=0;j<4;j++){
+				btn_Number[i][j] = new JButton(btn_String[i][j]);
+				btn_Number[i][j].setBounds(15+(66*j), 50+(40*i), 56, 30);
+				btn_Number[i][j].addActionListener(new ActionListener(){
+
+					@Override
+					public void actionPerformed(ActionEvent arg0) {
+						// TODO Auto-generated method stub
+						
+					}
+					
+				});
+				this.add(btn_Number[i][j]);
+			}
+		}
+		
+	}
+	public void setTfText(ActionEvent arg0){
+		switch(arg0.getActionCommand()){
+		case "0":
+			tf_Number.setText(tf_Number.getText()+arg0.getActionCommand());
+			break;
+		case "1":
+			tf_Number.setText(tf_Number.getText()+arg0.getActionCommand());
+			break;
+		case "2":
+			tf_Number.setText(tf_Number.getText()+arg0.getActionCommand());
+			break;
+		case "3":
+			tf_Number.setText(tf_Number.getText()+arg0.getActionCommand());
+			break;
+		case "4":
+			tf_Number.setText(tf_Number.getText()+arg0.getActionCommand());
+			break;
+		case "5":
+			tf_Number.setText(tf_Number.getText()+arg0.getActionCommand());
+			break;
+		case "6":
+			tf_Number.setText(tf_Number.getText()+arg0.getActionCommand());
+			break;
+		case "7":
+			tf_Number.setText(tf_Number.getText()+arg0.getActionCommand());
+			break;
+		case "8":
+			tf_Number.setText(tf_Number.getText()+arg0.getActionCommand());
+			break;
+		case "9":
+			tf_Number.setText(tf_Number.getText()+arg0.getActionCommand());
+			break;
+		case ".":
+			tf_Number.setText(tf_Number.getText()+arg0.getActionCommand());
+			break;
+		case "+":	
+			tmpInt = (tmpInt == 0)?Integer.valueOf(tf_Number.getText()) : (tmpInt+Integer.valueOf(tf_Number.getText()));
+			tf_Number.setText(""+tmpInt);
+			break;
+		case "-":
+			tmpInt = (tmpInt == 0)?Integer.valueOf(tf_Number.getText()) : (tmpInt+Integer.valueOf(tf_Number.getText()));
+			tf_Number.setText(""+tmpInt);
+			break;
+		case "*":
+			tmpInt = (tmpInt == 0)?Integer.valueOf(tf_Number.getText()) : (tmpInt+Integer.valueOf(tf_Number.getText()));
+			tf_Number.setText(""+tmpInt);
+			break;
+		case "/":
+			tmpInt = (tmpInt == 0)?Integer.valueOf(tf_Number.getText()) : (tmpInt+Integer.valueOf(tf_Number.getText()));
+			tf_Number.setText(""+tmpInt);
+			break;
+		case "C":
+			tmpInt = 0;
+			tf_Number.setText("");
+			break;
+		}
+	}
+}
