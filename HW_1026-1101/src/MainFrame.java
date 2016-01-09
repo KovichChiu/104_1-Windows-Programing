@@ -14,6 +14,7 @@ import javax.swing.Timer;
 import javax.swing.border.Border;
 
 public class MainFrame extends JFrame {
+	
 	private TimeLabel[] lb_h = new TimeLabel[2];
 	private TimeLabel[] lb_m = new TimeLabel[2];
 	private TimeLabel[] lb_s = new TimeLabel[2];
@@ -74,10 +75,12 @@ public class MainFrame extends JFrame {
 		btn_pause.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(e.getActionCommand().equals("Pause")){
+					ta.append(" ¡÷ Pause...\n");
 					btn_pause.setText("Continue");
 					t.stop();
 				}else{
 					btn_pause.setText("Pause");
+					ta.append(" ¡÷ Continue...\n");
 					t.start();
 				}
 			}
@@ -97,6 +100,7 @@ public class MainFrame extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				TimeStop();
 				btn_Enablefalse();
+				btn_pause.setText("Pause");
 				btn_exit.setEnabled(true);
 			}
 		});
@@ -138,7 +142,11 @@ public class MainFrame extends JFrame {
 					lb_point[0].setIcon(img);
 					lb_point[1].setIcon(img);
 				}
-				setImg();
+				if(h<100){
+					setImg();
+				}else{
+					s=0;m=0;h=0;
+				}
 			}
 		});
 		t.start();
